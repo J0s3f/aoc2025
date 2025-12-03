@@ -1,5 +1,7 @@
 import aoc_2025/day_02
 import gleeunit/should
+import simplifile
+import gleam/result
 
 pub fn part1_test() {
   let example_input =
@@ -8,6 +10,11 @@ pub fn part1_test() {
   |> should.equal(1_227_775_554)
 }
 
+pub fn part1_regression_test() {
+  let puzzle_input = simplifile.read("input/2025/02.txt") |> result.unwrap("")
+  day_02.part1(puzzle_input)
+  |> should.equal(16_793_817_782)
+}
 
 pub fn part2_test() {
   let example_input =
@@ -16,3 +23,8 @@ pub fn part2_test() {
   |> should.equal(4_174_379_265)
 }
 
+pub fn part2_regression_test() {
+  let puzzle_input = simplifile.read("input/2025/02.txt") |> result.unwrap("")
+  day_02.part2(puzzle_input)
+  |> should.equal(27_469_417_404)
+}
