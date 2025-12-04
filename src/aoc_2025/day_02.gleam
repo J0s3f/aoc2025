@@ -22,7 +22,7 @@ fn parse_ranges(input: String) -> List(Range) {
   })
 }
 
-fn is_invalid_id_part1(id: Int) -> Bool {
+fn is_invalid_id_half_repeat(id: Int) -> Bool {
   let s = int.to_string(id)
   let len = string.length(s)
   case len > 0 && len % 2 == 0 {
@@ -34,7 +34,7 @@ fn is_invalid_id_part1(id: Int) -> Bool {
   }
 }
 
-pub fn is_invalid_id_part2(id: Int) -> Bool {
+fn is_invalid_id_repeating(id: Int) -> Bool {
   let s = int.to_string(id)
   let len = string.length(s)
   case len < 2 {
@@ -54,23 +54,12 @@ pub fn is_invalid_id_part2(id: Int) -> Bool {
   }
 }
 
-pub fn part2_get_invalid_ids(input: String) -> List(Int) {
-  let ranges = parse_ranges(input)
-  list.fold(ranges, [], fn(acc, range) {
-    let ids_in_range =
-      list.filter(list.range(range.start, range.end), fn(id) {
-        is_invalid_id_part2(id)
-      })
-    list.append(acc, ids_in_range)
-  })
-}
-
 pub fn part1(input: String) -> Int {
   let ranges = parse_ranges(input)
   list.fold(ranges, 0, fn(acc, range) {
     acc
     + list.fold(list.range(range.start, range.end), 0, fn(sum, id) {
-      case is_invalid_id_part1(id) {
+      case is_invalid_id_half_repeat(id) {
         True -> sum + id
         False -> sum
       }
@@ -91,7 +80,7 @@ pub fn part2(input: String) -> Int {
           Ok(start_id), Ok(end_id) -> {
             let invalid_ids_in_range =
               list.fold(list.range(start_id, end_id), 0, fn(current_sum, id) {
-                case is_invalid_id_part2(id) {
+                case is_invalid_id_repeating(id) {
                   True -> current_sum + id
                   False -> current_sum
                 }

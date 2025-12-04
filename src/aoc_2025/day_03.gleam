@@ -2,10 +2,12 @@ import gleam/int
 import gleam/string
 import gleam/list
 import gleam/order
+import iv
 
 fn get_max_joltage_for_line(line: String) -> Int {
-  let chars = string.to_graphemes(line)
-  let length = list.length(chars)
+  let chars_list = string.to_graphemes(line)
+  let chars = iv.from_list(chars_list)
+  let length = iv.length(chars)
   let indexes = list.range(0, length - 1)
 
   let pairs = list.flat_map(indexes, fn(i) {
@@ -16,8 +18,8 @@ fn get_max_joltage_for_line(line: String) -> Int {
   let max_joltage = list.fold(pairs, 0, fn(max_joltage, pair) {
     let i = pair.0
     let j = pair.1
-    let d1_char = list.drop(chars, i) |> list.first
-    let d2_char = list.drop(chars, j) |> list.first
+    let d1_char = iv.get(chars, i)
+    let d2_char = iv.get(chars, j)
 
     case d1_char, d2_char {
       Ok(d1_str), Ok(d2_str) -> {

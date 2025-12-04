@@ -49,7 +49,7 @@ fn process_line(state: #(Int, Int), line: String) -> #(Int, Int) {
   }
 }
 
-fn process_line_part2(state: #(Int, Int), line: String) -> #(Int, Int) {
+fn process_line_with_crossings(state: #(Int, Int), line: String) -> #(Int, Int) {
   case string.is_empty(line) {
     True -> state
     False -> {
@@ -114,7 +114,7 @@ pub fn part2(input: String) -> Int {
   let normalized_input = string.replace(in: input, each: "\r\n", with: "\n")
   let lines = string.split(normalized_input, on: "\n")
   let initial_state = #(50, 0)
-  let final_state = list.fold(lines, initial_state, process_line_part2)
+  let final_state = list.fold(lines, initial_state, process_line_with_crossings)
   let #(_, zero_count) = final_state
   zero_count
 }

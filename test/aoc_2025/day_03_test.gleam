@@ -1,10 +1,9 @@
 import aoc_2025/day_03
 import gleeunit/should
-import gleam/string
 import simplifile
 import gleam/result
 
-pub fn part1_example_test() {
+pub fn part1_test() {
   let example = "987654321111111
 811111111111119
 234234234234278
@@ -19,7 +18,7 @@ pub fn part1_regression_test() {
   |> should.equal(17330)
 }
 
-pub fn part2_example_test() {
+pub fn part2_test() {
   let example = "987654321111111
 811111111111119
 234234234234278
